@@ -111,7 +111,7 @@ const GameContainer: React.FC = () => {
     setCurrentPlayer(selectedPlayer);
     setWinner(null);
     setIsDraw(false);
-    setGameStarted(false);
+    setGameStarted(true);
     setIsComputerThinking(false);
     setWinningLine(null);
     setGameEnd(false);
@@ -128,11 +128,11 @@ const GameContainer: React.FC = () => {
 
   // Handle player selection
   const handleSelectPlayer = (player: string) => {
-    if (!gameStarted) {
-      setSelectedPlayer(player);
-      setCurrentPlayer(player);
-      setComputerPlayer(player === "X" ? "O" : "X");
-    }
+    setSelectedPlayer(player);
+    setCurrentPlayer(player);
+    setComputerPlayer(player === "X" ? "O" : "X");
+
+    handleRestart();
   };
 
   // Handle cell click
