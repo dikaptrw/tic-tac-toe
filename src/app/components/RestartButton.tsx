@@ -11,7 +11,7 @@ const RestartButton: React.FC<RestartButtonProps> = ({ onRestart }) => {
   return (
     <motion.button
       onClick={onRestart}
-      className="w-full px-6 py-2 bg-[#f8f9fa] text-gray-700 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors font-medium cursor-pointer uppercase"
+      className="w-full px-6 py-2 h-[60px] bg-[#f8f9fa] text-xl text-black border border-gray-300 rounded-md hover:bg-gray-100 transition-colors cursor-pointer uppercase font-black"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300 }}

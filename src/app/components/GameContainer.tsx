@@ -161,7 +161,7 @@ const GameContainer: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4">
+    <div className="flex flex-col items-center justify-center p-8">
       <AnimatePresence mode="wait">
         <motion.div
           key={getGameStatus()}
@@ -184,7 +184,7 @@ const GameContainer: React.FC = () => {
         winningLine={winningLine}
       />
 
-      <div className="flex items-center gap-8">
+      <div className="flex flex-col 2sm:flex-row items-center gap-8 w-full">
         <PlayerSelection
           selectedPlayer={selectedPlayer}
           onSelectPlayer={handleSelectPlayer}
