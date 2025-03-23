@@ -25,6 +25,8 @@
   --breakpoint-2lg: 1152px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
+
+  --spacing-18: 4.5rem;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -60,7 +60,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
             >
               {cell === "X" && (
                 <motion.div
-                  className="font-bold w-12 h-12 2sm:w-20 2sm:h-20"
+                  className="font-bold w-12 h-12 2sm:w-16 2sm:h-16"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={
                     winningLine && winningLine.includes(index)
@@ -97,7 +97,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
                   }
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="marker w-12 h-12 2sm:w-20 2sm:h-20 border-[8px] border-white rounded-full"></div>
+                  <div className="marker w-14 h-14 2sm:w-18 2sm:h-18 border-[5px] 2sm:border-[7px] border-white rounded-full"></div>
                 </motion.div>
               )}
             </motion.div>
