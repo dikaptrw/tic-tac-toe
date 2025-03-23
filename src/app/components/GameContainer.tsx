@@ -21,6 +21,7 @@ const GameContainer: React.FC = () => {
   const [winner, setWinner] = useState<string | null>(null);
   const [isDraw, setIsDraw] = useState<boolean>(false);
   const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [gameEnd, setGameEnd] = useState<boolean>(false);
   const [isComputerThinking, setIsComputerThinking] = useState<boolean>(false);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
   const [score, setScore] = useState<Score>({ X: 0, T: 0, O: 0 });
@@ -36,6 +37,8 @@ const GameContainer: React.FC = () => {
     } else if (isDraw) {
       setScore((prev) => ({ ...prev, T: prev.T + 1 }));
     }
+
+    setGameEnd(true);
   }, [winner, isDraw]);
 
   // Check for winner or draw after each move
@@ -103,7 +106,7 @@ const GameContainer: React.FC = () => {
   ]);
 
   // Reset the game
-  const handleRestart = () => {
+  const handleStart = () => {
     setBoard(Array(9).fill(null));
     setCurrentPlayer(selectedPlayer);
     setWinner(null);
@@ -111,6 +114,16 @@ const GameContainer: React.FC = () => {
     setGameStarted(false);
     setIsComputerThinking(false);
     setWinningLine(null);
+    setGameEnd(false);
+  };
+
+  const handlePlayAgain = () => {
+    handleStart();
+  };
+
+  const handleRestart = () => {
+    handleStart();
+    setScore({ X: 0, T: 0, O: 0 });
   };
 
   // Handle player selection
@@ -179,6 +192,8 @@ const GameContainer: React.FC = () => {
 
       <GameBoard
         board={board}
+        handlePlayAgain={handlePlayAgain}
+        gameEnd={gameEnd}
         onCellClick={handleCellClick}
         currentPlayer={currentPlayer}
         winningLine={winningLine}
