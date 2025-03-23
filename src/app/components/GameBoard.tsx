@@ -50,7 +50,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
               key={index}
               onClick={() => cell === null && onCellClick(index)}
               className={cn(
-                "w-24 h-24 2sm:w-40 2sm:h-40 aspect-square flex items-center justify-center cursor-pointer border-white",
+                "w-24 h-24 2sm:w-32 2sm:h-32 aspect-square flex items-center justify-center cursor-pointer border-white",
                 winningLine && winningLine.includes(index)
                   ? "[&_.marker]:!text-[#1a9e97] [&_.marker]:!border-[#1a9e97]"
                   : "",

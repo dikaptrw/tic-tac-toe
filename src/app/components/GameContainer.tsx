@@ -174,7 +174,7 @@ const GameContainer: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8">
+    <div className="flex flex-col items-center justify-center px-8 py-12">
       <AnimatePresence mode="wait">
         <motion.div
           key={getGameStatus()}
