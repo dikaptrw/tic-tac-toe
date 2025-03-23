@@ -1,7 +1,8 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import { cn } from "../utils";
 
 interface GameBoardProps {
   board: (string | null)[];
@@ -10,44 +11,68 @@ interface GameBoardProps {
   winningLine?: number[] | null;
 }
 
-const GameBoard: React.FC<GameBoardProps> = ({ board, onCellClick, winningLine = null }) => {
+const GameBoard: React.FC<GameBoardProps> = ({
+  board,
+  onCellClick,
+  winningLine = null,
+}) => {
   return (
-    <div className="w-full max-w-md">
-      <div className="bg-[#20b2aa] p-4 rounded-md">
-        <div className="grid grid-cols-3 gap-2">
+    <div className="w-full py-10">
+      <div className="p-4 rounded-md">
+        <div className="grid grid-cols-3">
           {board.map((cell, index) => (
             <motion.div
               key={index}
               onClick={() => cell === null && onCellClick(index)}
-              className={`aspect-square flex items-center justify-center bg-[#20b2aa] border-2 border-[#1a9e97] rounded-sm cursor-pointer ${
-                winningLine && winningLine.includes(index) ? 'bg-[#1a9e97]' : ''
-              }`}
-              whileHover={cell === null ? { scale: 1.05 } : {}}
-              whileTap={cell === null ? { scale: 0.95 } : {}}
-              animate={
+              className={cn(
+                "w-40 h-40 aspect-square flex items-center justify-center cursor-pointer border-white",
                 winningLine && winningLine.includes(index)
-                  ? { scale: [1, 1.1, 1], transition: { repeat: 2 } }
-                  : {}
-              }
+                  ? "bg-[#1a9e97]"
+                  : "",
+                index < 6 ? "border-b-[5px]" : "",
+                index % 3 !== 2 ? "border-r-[5px]" : ""
+              )}
             >
-              {cell === 'X' && (
-                <motion.div 
-                  className="text-gray-800 text-5xl font-bold"
+              {cell === "X" && (
+                <motion.div
+                  className="font-bold w-20 h-20"
                   initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
+                  animate={
+                    winningLine && winningLine.includes(index)
+                      ? {
+                          scale: [1, 1.1, 1],
+                          opacity: 1,
+                          transition: { repeat: 2 },
+                        }
+                      : { scale: 1, opacity: 1 }
+                  }
                   transition={{ duration: 0.2 }}
                 >
-                  X
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-full h-full"
+                  >
+                    <path d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"></path>
+                  </svg>
                 </motion.div>
               )}
-              {cell === 'O' && (
-                <motion.div 
-                  className="text-white text-5xl font-bold"
+              {cell === "O" && (
+                <motion.div
                   initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
+                  animate={
+                    winningLine && winningLine.includes(index)
+                      ? {
+                          scale: [1, 1.1, 1],
+                          opacity: 1,
+                          transition: { repeat: 2 },
+                        }
+                      : { scale: 1, opacity: 1 }
+                  }
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="w-12 h-12 border-4 border-white rounded-full"></div>
+                  <div className="w-16 h-16 border-[6px] border-white rounded-full"></div>
                 </motion.div>
               )}
             </motion.div>

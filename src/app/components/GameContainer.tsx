@@ -7,6 +7,12 @@ import PlayerSelection from "./PlayerSelection";
 import RestartButton from "./RestartButton";
 import { checkWinner, checkDraw, getBestMove } from "../utils/gameLogic";
 
+export interface Score {
+  X: number;
+  T: number;
+  O: number;
+}
+
 const GameContainer: React.FC = () => {
   const [board, setBoard] = useState<(string | null)[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<string>("X");
@@ -17,6 +23,20 @@ const GameContainer: React.FC = () => {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [isComputerThinking, setIsComputerThinking] = useState<boolean>(false);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
+  const [score, setScore] = useState<Score>({ X: 0, T: 0, O: 0 });
+
+  useEffect(() => {
+    // Update the score
+    if (!winner && !isDraw) return;
+
+    if (winner === "X") {
+      setScore((prev) => ({ ...prev, X: prev.X + 1 }));
+    } else if (winner === "O") {
+      setScore((prev) => ({ ...prev, O: prev.O + 1 }));
+    } else if (isDraw) {
+      setScore((prev) => ({ ...prev, T: prev.T + 1 }));
+    }
+  }, [winner, isDraw]);
 
   // Check for winner or draw after each move
   useEffect(() => {
@@ -125,6 +145,10 @@ const GameContainer: React.FC = () => {
 
   // Game status message
   const getGameStatus = () => {
+    if (!gameStarted) {
+      return "Tic Tac Toe";
+    }
+
     if (winner) {
       return `${winner} wins!`;
     } else if (isDraw) {
@@ -138,20 +162,6 @@ const GameContainer: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4">
-      <motion.h1
-        className="text-3xl font-bold mb-6 text-black"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        Tic-tac-toe
-      </motion.h1>
-
-      <PlayerSelection
-        selectedPlayer={selectedPlayer}
-        onSelectPlayer={handleSelectPlayer}
-      />
-
       <AnimatePresence mode="wait">
         <motion.div
           key={getGameStatus()}
@@ -159,10 +169,10 @@ const GameContainer: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -5 }}
           transition={{ duration: 0.2 }}
-          className="text-center mb-4"
+          className="text-center text-2xl -mb-1.5"
         >
-          <div className="inline-block px-4 py-2">
-            <span className="text-gray-700 font-medium">{getGameStatus()}</span>
+          <div className="inline-block px-4">
+            <span className="font-medium">{getGameStatus()}</span>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -174,7 +184,15 @@ const GameContainer: React.FC = () => {
         winningLine={winningLine}
       />
 
-      <RestartButton onRestart={handleRestart} />
+      <div className="flex items-center gap-8">
+        <PlayerSelection
+          selectedPlayer={selectedPlayer}
+          onSelectPlayer={handleSelectPlayer}
+          score={score}
+        />
+
+        <RestartButton onRestart={handleRestart} />
+      </div>
     </div>
   );
 };
