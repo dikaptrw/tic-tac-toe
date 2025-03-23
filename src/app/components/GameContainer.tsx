@@ -38,7 +38,10 @@ const GameContainer: React.FC = () => {
       setScore((prev) => ({ ...prev, T: prev.T + 1 }));
     }
 
-    setGameEnd(true);
+    // waiting for the game end animation to finish
+    setTimeout(() => {
+      setGameEnd(true);
+    }, 1200);
   }, [winner, isDraw]);
 
   // Check for winner or draw after each move

@@ -24,18 +24,22 @@ const GameBoard: React.FC<GameBoardProps> = ({
     <div className="relative w-full py-10">
       {/* play again button overlay */}
       <div>
-        {(winningLine || gameEnd) && (
+        {gameEnd && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
             className="absolute z-[10] inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm bg-opacity-70"
           >
             <motion.button
               onClick={handlePlayAgain}
               className="cursor-pointer uppercase text-3xl 2sm:text-4xl font-black"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              transition={{ type: "spring", stiffness: 300, duration: 0.4 }}
             >
               Play Again
             </motion.button>
